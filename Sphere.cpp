@@ -53,6 +53,28 @@ Sphere::Sphere() {
             vertices.push_back(z1);
             indices.push_back(indicator);
             indicator++;
+
+            float x_avg = ((x * zr1) + (x * zr0) + (x1 * zr0) + (x1 * zr1)) / 4;
+            float y_avg = ((y * zr1) + (y * zr0) + (y1 * zr0) + (y1 * zr1)) / 4;
+            float z_avg = (2 * z0 + 2 * z1) / 4;
+
+            glm::vec3 avg = glm::normalize(glm::vec3(x_avg, y_avg, z_avg));
+
+            normals.push_back(avg.x);
+            normals.push_back(avg.y);
+            normals.push_back(avg.z);
+
+            normals.push_back(avg.x);
+            normals.push_back(avg.y);
+            normals.push_back(avg.z);
+
+            normals.push_back(avg.x);
+            normals.push_back(avg.y);
+            normals.push_back(avg.z);
+
+            normals.push_back(avg.x);
+            normals.push_back(avg.y);
+            normals.push_back(avg.z);
         }
         indices.push_back(GL_PRIMITIVE_RESTART_FIXED_INDEX);
     }

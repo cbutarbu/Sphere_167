@@ -20,7 +20,8 @@ class Sphere {
 		int sectorCount = 40;
 		int numsToDraw;
 		Sphere();
-		void draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& eye) override;
+		void draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& eye);
+		void useShader(GLuint s) { shader = s; }
 };
 
 #endif
