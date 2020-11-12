@@ -124,8 +124,6 @@ draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view,
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glDrawElements(GL_QUADS, numsToDraw, GL_UNSIGNED_INT, NULL);
     
-
-    //glDrawElements(GL_TRIANGLES, numsToDraw, GL_UNSIGNED_INT, 0);
     glUseProgram(0);
     glBindVertexArray(0);
 }
