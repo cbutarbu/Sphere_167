@@ -11,17 +11,24 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class Sphere {
+#include "shader.h"
+#include "Object.h"
+#include "./components/geometries/Geometry.h"
+
+class Sphere : public Geometry {
 	public:
 		GLuint shader;
+
 		GLuint vao = 0, vbo = 0, vbo_n = 0, ebo = 0;
+		glm::vec3 _minVal, _maxVal, _center;
 
 		int stackCount = 40;
 		int sectorCount = 40;
 		int numsToDraw;
 		Sphere();
-		void draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& eye);
+		void draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& eye) override;
 		void useShader(GLuint s) { shader = s; }
+		AABB boundingBox() const override { return AABB{ _minVal, _maxVal }; }
 };
 
 #endif

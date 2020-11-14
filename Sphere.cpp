@@ -6,7 +6,6 @@
 
 #include "Sphere.h"
 
-/* Code sampled from https://gist.github.com/zwzmzd/0195733fa1210346b00d, adjusted to use GL_QUADS instead of GL_QUADS_STRIP */
 Sphere::Sphere() {
     int i, j;
     std::vector<GLfloat> vertices;
@@ -48,15 +47,28 @@ Sphere::Sphere() {
             indices.push_back(indicator);
             indicator++;
 
+            vertices.push_back(x1 * zr0);
+            vertices.push_back(y1 * zr0);
+            vertices.push_back(z0);
+            indices.push_back(indicator);
+            indicator++;
+
             vertices.push_back(x1 * zr1);
             vertices.push_back(y1 * zr1);
             vertices.push_back(z1);
             indices.push_back(indicator);
             indicator++;
 
-            float x_avg = ((x * zr1) + (x * zr0) + (x1 * zr0) + (x1 * zr1)) / 4;
-            float y_avg = ((y * zr1) + (y * zr0) + (y1 * zr0) + (y1 * zr1)) / 4;
-            float z_avg = (2 * z0 + 2 * z1) / 4;
+            vertices.push_back(x * zr1);
+            vertices.push_back(y * zr1);
+            vertices.push_back(z1);
+            indices.push_back(indicator);
+            indicator++;
+
+            
+            float x_avg = ((x * zr1) + (x * zr0) + (x1 * zr0) + (x1 * zr1));
+            float y_avg = ((y * zr1) + (y * zr0) + (y1 * zr0) + (y1 * zr1));
+            float z_avg = (2 * z0 + 2 * z1);
 
             glm::vec3 avg = glm::normalize(glm::vec3(x_avg, y_avg, z_avg));
 
@@ -75,6 +87,15 @@ Sphere::Sphere() {
             normals.push_back(avg.x);
             normals.push_back(avg.y);
             normals.push_back(avg.z);
+
+            normals.push_back(avg.x);
+            normals.push_back(avg.y);
+            normals.push_back(avg.z);
+
+            normals.push_back(avg.x);
+            normals.push_back(avg.y);
+            normals.push_back(avg.z);
+
         }
         indices.push_back(GL_PRIMITIVE_RESTART_FIXED_INDEX);
     }
@@ -89,7 +110,6 @@ Sphere::Sphere() {
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
     glEnableVertexAttribArray(0);
-
 
     glGenBuffers(1, &vbo_n);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_n);
@@ -122,7 +142,7 @@ draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view,
     glEnable(GL_PRIMITIVE_RESTART);
     glPrimitiveRestartIndex(GL_PRIMITIVE_RESTART_FIXED_INDEX);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glDrawElements(GL_QUADS, numsToDraw, GL_UNSIGNED_INT, NULL);
+    glDrawElements(GL_TRIANGLES, numsToDraw, GL_UNSIGNED_INT, NULL);
     
     glUseProgram(0);
     glBindVertexArray(0);
