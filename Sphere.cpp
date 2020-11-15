@@ -4,6 +4,10 @@
 #include <tuple>
 #include <numeric>
 
+#ifndef GL_PRIMITIVE_RESTART_FIXED_INDEX
+#define GL_PRIMITIVE_RESTART_FIXED_INDEX 0xFFFFFF
+#endif
+
 #include "Sphere.h"
 
 Sphere::Sphere() {
