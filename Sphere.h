@@ -13,9 +13,8 @@
 
 #include "shader.h"
 #include "Object.h"
-#include "./components/geometries/Geometry.h"
 
-class Sphere : public Geometry {
+class Sphere {
 	public:
 		GLuint shader;
 
@@ -26,9 +25,8 @@ class Sphere : public Geometry {
 		int sectorCount = 40;
 		int numsToDraw;
 		Sphere();
-		void draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& eye) override;
+		void draw(const glm::mat4& world, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& eye);
 		void useShader(GLuint s) { shader = s; }
-		AABB boundingBox() const override { return AABB{ _minVal, _maxVal }; }
 };
 
 #endif
